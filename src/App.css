@@ -1,0 +1,9 @@
+#map {
+  max-width: 80%;
+  position: relative;
+}
+
+.sidebar {
+  max-width: 20%;
+  height: 100%;
+}
