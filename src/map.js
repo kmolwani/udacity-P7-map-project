@@ -1,3 +1,4 @@
+// Completed with the help of Ryan Waite's walkthrough video
 export function load_google_maps() {
   return new Promise(function(resolve, reject) {
     // define the global callback that will run when google maps is loaded
@@ -24,3 +25,7 @@ export function load_fourSquare_API() {
   var fourSquareURL = 'https://api.foursquare.com/v2/venues/search?client_id=' + client_id + '&client_secret=' + client_secret + '&v=20183010%20&limit=50&near=' + city + '&query=' + query + '';
   return fetch(fourSquareURL).then(response => response.json())
 }
+
+// export function streetViewImage(venue) {
+//     return 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location=' + venue.location.lat + ',' + venue.location.lng + '&heading=151.78&pitch=-0.76&key=AIzaSyBLTp-LXOA-37eNiP6Bw9m-MzLu73D9O2o';
+// }
