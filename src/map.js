@@ -23,9 +23,9 @@ export function load_fourSquare_API() {
   let client_id = 'F2VBTCTDKYLP0JY2XEAJEQFOO3PURQG3CRKROB5HTCMSFUKH';
   let client_secret = 'B1OBOMKJETXB2Y5LN5QBI0ELJKKCXHHLAT3E4UJWNHO25B41'
   var fourSquareURL = 'https://api.foursquare.com/v2/venues/search?client_id=' + client_id + '&client_secret=' + client_secret + '&v=20183010%20&limit=50&near=' + city + '&query=' + query + '';
-  return fetch(fourSquareURL).then(response => response.json())
+  return fetch(fourSquareURL)
+  .then(response => response.json())
+  .catch(error => {
+    alert('UH OH ... I am unable to obtain venues')
+  })
 }
-
-// export function streetViewImage(venue) {
-//     return 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location=' + venue.location.lat + ',' + venue.location.lng + '&heading=151.78&pitch=-0.76&key=AIzaSyBLTp-LXOA-37eNiP6Bw9m-MzLu73D9O2o';
-// }

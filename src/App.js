@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { load_google_maps, load_fourSquare_API, hideShowMenu } from './map.js';
+import { load_google_maps, load_fourSquare_API } from './map.js';
 import './App.css'
 
 class App extends Component {
@@ -8,7 +8,8 @@ class App extends Component {
     super(props)
     this.state = {
       query: '',
-      venueList: {}
+      venueList: {},
+      sidebar: 'open'
     }
     this.hideShowMenu = this.hideShowMenu.bind(this);
   }
@@ -76,12 +77,13 @@ class App extends Component {
   }
 
   hideShowMenu() {
-    console.log('hi');
-    var x = document.getElementById("sidebar");
-    if (x.style.display === "none") {
-      x.style.display = "block";
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none" && this.state.sidebar === 'close') {
+      sidebar.style.display = "block";
+      this.setState({ sidebar: 'open' })
     } else {
-      x.style.display = "none";
+      sidebar.style.display = "none";
+      this.setState({ sidebar: 'close' })
     }
   }
 
@@ -100,6 +102,7 @@ class App extends Component {
   venueInfo = (venue) => {
     let marker = this.markers.filter(m => m.id === venue.id)[0]
     var information = marker.name;
+    // var sidebar = document.getElementById("sidebar");
 
     this.infowindow.setContent(information);
     this.infowindow.open(this.map, marker);
@@ -111,6 +114,14 @@ class App extends Component {
       )
     this.map.setCenter(marker.position)
     this.map.setZoom(15)
+
+    // unable to hide the sidebar when the screen width is less than certain size
+
+    // if (document.body.style.width <= '430px') {
+    //   console.log(document.body.style.width == '640px');
+    //   sidebar.style.display = "none";
+    //   this.setState({ sidebar: 'close' })
+    // }
   }
 
   render() {
@@ -121,10 +132,11 @@ class App extends Component {
         <button id='hide-show-button' onClick={() => this.hideShowMenu()} tabIndex='1' ><img id='hamburger-icon-image' alt= 'menu-icon' src='https://css-tricks.com/wp-content/uploads/2012/10/threelines.png'/></button>
       </div>
       <div id='sidebar'>
+        <p className="credit">***Venues procured using FourSquare API</p>
         <input tabIndex='2' value={this.state.query} placeholder='Search a Pizza Place' onChange = {(e) => {this.filterVenues(e.target.value)}}/>
         {
           this.state.venueList && this.state.venueList.length > 0 && this.state.venueList.map(( venue, index ) => (
-            <div tabIndex='3' key={index} className='venue-list' onClick = {(e) => {this.venueInfo(venue)}}>
+            <div tabIndex='3' key={index} className='venue-list' onClick = {(e) => {this.venueInfo(venue)}} onKeyPress = {(e) => {this.venueInfo(venue)}}>
               {venue.name}
             </div>
           ))
