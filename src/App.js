@@ -127,13 +127,13 @@ class App extends Component {
   render() {
     return (
       <div>
-      <div className='title-banner'>
-        <h1 className='title'> Find me Pizza! </h1>
-        <button id='hide-show-button' onClick={() => this.hideShowMenu()} tabIndex='1' ><img id='hamburger-icon-image' alt= 'menu-icon' src='https://css-tricks.com/wp-content/uploads/2012/10/threelines.png'/></button>
+      <div role='Heading' className='title-banner'>
+        <h1 aria-label='heading' className='title'> Find me Pizza! </h1>
+        <button role='Presentation' aria-hidden="true" id='hide-show-button' onClick={() => this.hideShowMenu()} tabIndex='1' ><img id='hamburger-icon-image' alt= 'menu-icon' src='https://css-tricks.com/wp-content/uploads/2012/10/threelines.png'/></button>
       </div>
-      <div id='sidebar'>
+      <div role='Menu' id='sidebar'>
         <p className="credit">***Venues procured using FourSquare API</p>
-        <input tabIndex='2' value={this.state.query} placeholder='Search a Pizza Place' onChange = {(e) => {this.filterVenues(e.target.value)}}/>
+        <input aria-label='location filter' tabIndex='2' value={this.state.query} placeholder='Search a Pizza Place' onChange = {(e) => {this.filterVenues(e.target.value)}}/>
         {
           this.state.venueList && this.state.venueList.length > 0 && this.state.venueList.map(( venue, index ) => (
             <div tabIndex='3' key={index} className='venue-list' onClick = {(e) => {this.venueInfo(venue)}} onKeyPress = {(e) => {this.venueInfo(venue)}}>
@@ -143,7 +143,7 @@ class App extends Component {
         }
       </div>
 
-      <div id="map" />
+      <div aira-label='location' id="map" />
 
       </div>
     )
