@@ -1,8 +1,15 @@
-https://stackoverflow.com/questions/7339200/bounce-a-pin-in-google-maps-once/7832086
+## Neighborhood Map Project
 
 
+## Application Usage Instructions
 
+1: Download the repository on you desktop as a .zip file.
+2: Unzip the downloaded file
+3: Run npm install in command shell (windows) / terminal (mac) to install all of the dependencies to run the app
+4: Launch the app using the npm start command
+4: The page will load in your default browser on the web address localhost:3000
 
+## Build & development
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
