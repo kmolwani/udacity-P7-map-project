@@ -6,18 +6,20 @@ import './App.css'
 class App extends Component {
   constructor(props) {
     super(props)
+    // intiating states that will change
     this.state = {
       query: '',
       venueList: {},
       sidebar: 'open'
     }
+    // binding the hideShowMenu function
     this.hideShowMenu = this.hideShowMenu.bind(this);
   }
 
   componentDidMount() {
     let googleMapPromise = load_google_maps();
     let fourSquarePlacesPromise = load_fourSquare_API();
-    // creating promise to make sure to receive API objects
+    // creating promise to ensure return of asynchronous API requests
     Promise.all([
       googleMapPromise,
       fourSquarePlacesPromise,
@@ -34,6 +36,7 @@ class App extends Component {
         center: { lat: this.venues[15].location.lat, lng: this.venues[15].location.lng }
       })
 
+      // applying a marker to each venue
       this.venues.forEach(venue => {
         // eslint-disable-next-line
         let marker = new google.maps.Marker({
@@ -46,6 +49,7 @@ class App extends Component {
         })
         this.markers.push(marker)
 
+        // adding animation to the markers
         marker.addListener('mouseover', () => {
           marker.setAnimation(google.maps.Animation.BOUNCE)
         })
@@ -54,6 +58,7 @@ class App extends Component {
           marker.setAnimation(null)
         })
 
+        // information displayed in the infowindow
         let streetViewImage = 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location=' + venue.location.lat + ',' + venue.location.lng + '&heading=151.78&pitch=-0.76&key=AIzaSyBLTp-LXOA-37eNiP6Bw9m-MzLu73D9O2o';
         var information = '<div id="infowindow">' +
         `<h2> ${venue.name} </h2>
@@ -62,12 +67,31 @@ class App extends Component {
         '<img className="image" alt="' + venue.name + '" src="' + streetViewImage + '"/>' +
         '</div>';
 
+        // adding infowindow to markers
         google.maps.event.addListener(marker, 'click', () => {
           this.infowindow.setContent(information);
           this.infowindow.open(this.map, marker);
           this.map.setCenter(marker.position)
           this.map.setZoom(15)
+
+          // closing sidebar to show infowindow without sidebar overlapping
+          if (window.innerWidth <= 770) {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.style.display = "none";
+            this.setState({ sidebar: 'close' })
+          }
         })
+
+        // opening sidebar on smaller screens after the infowindow is closed
+        
+        // google.maps.event.addListener(this.infowindow,'closeclick', function(){
+        //
+        //   if (window.innerWidth <= 770) {
+        //     var sidebar = document.getElementById("sidebar");
+        //     sidebar.style.display = "block";
+        //     // this.setState({ sidebar: 'open' })
+        //   }
+        // })
       })
     this.setState({ venueList: this.venues })
     })
@@ -76,6 +100,7 @@ class App extends Component {
     })
   }
 
+  // adding sidebar open and close functionality
   hideShowMenu() {
     var sidebar = document.getElementById("sidebar");
     if (sidebar.style.display === "none" && this.state.sidebar === 'close') {
@@ -87,6 +112,7 @@ class App extends Component {
     }
   }
 
+  // this function filters venues with user input
   filterVenues(query) {
     let filteredVenues =  this.venues.filter(venue => venue.name.toLowerCase().includes(query.toLowerCase()));
     this.markers.forEach( marker => {
@@ -99,6 +125,7 @@ class App extends Component {
     this.setState({ venueList: filteredVenues, query })
   }
 
+  // adding functionality of what happens when the user clicks on a venue in sidebar
   venueInfo = (venue) => {
     let marker = this.markers.filter(m => m.id === venue.id)[0]
     var information = marker.name;
@@ -113,15 +140,14 @@ class App extends Component {
         setTimeout(() => {marker.setAnimation(null)}, 1500)
       )
     this.map.setCenter(marker.position)
-    this.map.setZoom(15)
+    this.map.setZoom(13)
 
-    // unable to hide the sidebar when the screen width is less than certain size
-
-    // if (document.body.style.width <= '430px') {
-    //   console.log(document.body.style.width == '640px');
-    //   sidebar.style.display = "none";
-    //   this.setState({ sidebar: 'close' })
-    // }
+    // closing sidebar if the screen width is less than 600px
+    if (window.innerWidth <= 700) {
+      var sidebar = document.getElementById("sidebar");
+      sidebar.style.display = "none";
+      this.setState({ sidebar: 'close' })
+    }
   }
 
   render() {
