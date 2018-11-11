@@ -45,6 +45,7 @@ body {
   top: 0px;
   left: 0;
   position: fixed;
+  cursor: pointer;
 }
 
 .venue-list {
