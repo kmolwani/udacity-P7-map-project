@@ -1,5 +1,5 @@
 ## Neighborhood Map Project
-
+This is project is built using Google Maps API to serve the map and the Foursquare API to show venues
 
 ## Application Usage Instructions
 
@@ -7,7 +7,7 @@
 2: Unzip the downloaded file
 3: Run npm install in command shell (windows) / terminal (mac) to install all of the dependencies to run the app
 4: Launch the app using the npm start command
-4: The page will load in your default browser on the web address localhost:3000
+5: The page will load in your default browser on the web address localhost:3000
 
 ## Build & development
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
