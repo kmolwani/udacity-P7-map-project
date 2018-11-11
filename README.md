@@ -9,5 +9,12 @@ This project is built using React and utilizes Google Maps API to serve the map 
 5: The page will load in your default browser on the web address localhost:3000
 6: Afterwards, you can iteract with the app
 
+## Offline usage (Service Worker)
+To have the app run in offline mode,
+- run the app in the production mode using the following commands in the shell/terminal
+  1: npm run build
+  2: serve -s build
+This will run the application on localhost:5000 address and will enable offline app usage
+
 ## Build & development
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
